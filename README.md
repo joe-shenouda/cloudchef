@@ -73,3 +73,14 @@ cloudchef/
 ├── style.css         # Modern, high-visibility dark theme grid and status designs
 ├── app.js            # Main thread canvas layout painters and filtering listeners
 └── parser.worker.js  # Background parsing thread handling resource sorting loops
+
+### Run Options
+1. **Local Mode:** Clone or download this repository folder to your machine. Double-click `index.html` to open it locally inside any modern secure web browser. It runs completely offline after initialization.
+2. **Static Web Server:** Upload the four folder files onto any file server layer, static corporate edge directory path, **GitHub Pages** distribution root path, Vercel, or Netlify workspace node.
+
+---
+
+## 👨‍💻 Author & License
+
+* Created and engineered with passion by **[Joe Shenouda](https://www.shenouda.nl)**.
+* Distributed openly under the **MIT License**. Free to run, adapt, fork, copy, and scale across active security teams, blue team squads, and digital forensics response units globally.
