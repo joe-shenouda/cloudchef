@@ -16,6 +16,8 @@ Every security analyst knows the exact feeling: a SOC alert flags at 23:47 with 
 
 The result? You end up wrestling with complex `jq` scripts in a terminal window until your eyes bleed.
 
+---
+
 ## 🛡️ The Solution: Privacy by Architecture
 
 **CloudChef** is a lightning-fast, standalone single-page web workbench that lets you ingest, parse, and thread large cloud dumps entirely inside your local browser memory space. 
@@ -67,14 +69,17 @@ Quickly filter out background noise on-the-fly. The custom parsing engine separa
 Because this layout utilizes standard frontend files, it features zero hosting overhead. The utility runs perfectly directly out of a single flat local folder.
 
 ### File Tree Structure
+
 ```text
 cloudchef/
 ├── index.html        # Main interface shell layout, metrics nodes, and panels
 ├── style.css         # Modern, high-visibility dark theme grid and status designs
 ├── app.js            # Main thread canvas layout painters and filtering listeners
 └── parser.worker.js  # Background parsing thread handling resource sorting loops
+```
 
 ### Run Options
+
 1. **Local Mode:** Clone or download this repository folder to your machine. Double-click `index.html` to open it locally inside any modern secure web browser. It runs completely offline after initialization.
 2. **Static Web Server:** Upload the four folder files onto any file server layer, static corporate edge directory path, **GitHub Pages** distribution root path, Vercel, or Netlify workspace node.
 
