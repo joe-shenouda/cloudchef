@@ -1,0 +1,132 @@
+[
+  {
+    "uuid": "okta-0001",
+    "published": "2026-05-31T07:02:11.123Z",
+    "eventType": "user.session.start",
+    "displayMessage": "User login to Okta",
+    "severity": "INFO",
+    "actor": {
+      "id": "00u1abc",
+      "type": "User",
+      "alternateId": "alice@corp.example.com",
+      "displayName": "Alice Admin"
+    },
+    "client": {
+      "ipAddress": "203.0.113.45",
+      "userAgent": { "browser": "CHROME", "os": "Mac OS X" },
+      "geographicalContext": { "city": "Eindhoven", "country": "Netherlands" }
+    },
+    "outcome": { "result": "SUCCESS" }
+  },
+  {
+    "uuid": "okta-0002",
+    "published": "2026-05-31T07:14:55.000Z",
+    "eventType": "user.mfa.factor.deactivate",
+    "displayMessage": "User reset MFA factor",
+    "severity": "WARN",
+    "actor": {
+      "id": "00u1abc",
+      "alternateId": "alice@corp.example.com",
+      "displayName": "Alice Admin"
+    },
+    "client": { "ipAddress": "203.0.113.45" },
+    "target": [{ "alternateId": "bob@corp.example.com", "displayName": "Bob Contractor" }],
+    "outcome": { "result": "SUCCESS" }
+  },
+  {
+    "uuid": "okta-0003",
+    "published": "2026-05-31T07:30:08.000Z",
+    "eventType": "user.account.update_password",
+    "displayMessage": "Password reset",
+    "actor": { "displayName": "Bob Contractor", "alternateId": "bob@corp.example.com" },
+    "client": { "ipAddress": "198.51.100.77" },
+    "outcome": { "result": "SUCCESS" }
+  },
+  {
+    "uuid": "okta-0004",
+    "published": "2026-05-31T07:42:19.000Z",
+    "eventType": "user.session.access_admin_app",
+    "displayMessage": "User accessing Okta admin app",
+    "actor": { "displayName": "Alice Admin", "alternateId": "alice@corp.example.com" },
+    "client": { "ipAddress": "203.0.113.45" },
+    "outcome": { "result": "SUCCESS" }
+  },
+  {
+    "uuid": "okta-0005",
+    "published": "2026-05-31T08:01:00.000Z",
+    "eventType": "application.lifecycle.create",
+    "displayMessage": "Create application",
+    "actor": { "displayName": "Alice Admin", "alternateId": "alice@corp.example.com" },
+    "client": { "ipAddress": "203.0.113.45" },
+    "target": [{ "displayName": "Shadow IT SAML App" }],
+    "outcome": { "result": "SUCCESS" }
+  },
+  {
+    "uuid": "okta-0006",
+    "published": "2026-05-31T08:15:42.000Z",
+    "eventType": "user.session.start",
+    "displayMessage": "User login to Okta",
+    "actor": { "displayName": "Eve Attacker", "alternateId": "eve@external.test" },
+    "client": {
+      "ipAddress": "185.220.101.7",
+      "geographicalContext": { "country": "Russia" }
+    },
+    "outcome": { "result": "FAILURE", "reason": "INVALID_CREDENTIALS" }
+  },
+  {
+    "uuid": "okta-0007",
+    "published": "2026-05-31T08:15:48.000Z",
+    "eventType": "user.session.start",
+    "actor": { "displayName": "Eve Attacker", "alternateId": "eve@external.test" },
+    "client": { "ipAddress": "185.220.101.7" },
+    "outcome": { "result": "FAILURE", "reason": "INVALID_CREDENTIALS" }
+  },
+  {
+    "uuid": "okta-0008",
+    "published": "2026-05-31T08:15:53.000Z",
+    "eventType": "user.session.start",
+    "actor": { "displayName": "Eve Attacker", "alternateId": "eve@external.test" },
+    "client": { "ipAddress": "185.220.101.7" },
+    "outcome": { "result": "FAILURE", "reason": "INVALID_CREDENTIALS" }
+  },
+  {
+    "uuid": "okta-0009",
+    "published": "2026-05-31T08:30:18.000Z",
+    "eventType": "group.user_membership.add",
+    "displayMessage": "Add user to group",
+    "actor": { "displayName": "Alice Admin", "alternateId": "alice@corp.example.com" },
+    "client": { "ipAddress": "203.0.113.45" },
+    "target": [
+      { "displayName": "Bob Contractor", "type": "User" },
+      { "displayName": "Global Administrators", "type": "UserGroup" }
+    ],
+    "outcome": { "result": "SUCCESS" }
+  },
+  {
+    "uuid": "okta-0010",
+    "published": "2026-05-31T08:45:00.000Z",
+    "eventType": "user.lifecycle.delete.initiated",
+    "displayMessage": "Delete user",
+    "actor": { "displayName": "Alice Admin", "alternateId": "alice@corp.example.com" },
+    "client": { "ipAddress": "203.0.113.45" },
+    "target": [{ "displayName": "Former Employee", "alternateId": "former@corp.example.com" }],
+    "outcome": { "result": "SUCCESS" }
+  },
+  {
+    "uuid": "okta-0011",
+    "published": "2026-05-31T09:02:33.000Z",
+    "eventType": "policy.lifecycle.update",
+    "displayMessage": "Update password policy",
+    "actor": { "displayName": "Alice Admin", "alternateId": "alice@corp.example.com" },
+    "client": { "ipAddress": "203.0.113.45" },
+    "outcome": { "result": "SUCCESS" }
+  },
+  {
+    "uuid": "okta-0012",
+    "published": "2026-05-31T09:30:14.000Z",
+    "eventType": "user.session.start",
+    "actor": { "displayName": "Carol Dev", "alternateId": "carol@corp.example.com" },
+    "client": { "ipAddress": "198.51.100.22" },
+    "outcome": { "result": "SUCCESS" }
+  }
+]

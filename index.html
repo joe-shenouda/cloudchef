@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CloudChef — Cloud Security Log Parser</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Global drag overlay -->
+<div id="drag-overlay" class="hidden">
+  <div class="drag-inner">
+    <div class="drag-icon">⬇</div>
+    <div class="drag-title">Drop log file to ingest</div>
+    <div class="drag-sub">.json / .log — processed 100% in-browser</div>
+  </div>
+</div>
+
+<!-- Loading spinner -->
+<div id="loading-overlay" class="hidden">
+  <div class="spinner"></div>
+  <div class="loading-text">Parsing logs…</div>
+</div>
+
+<!-- Header bar -->
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">▣</span>
+    <span class="brand-name">CloudChef</span>
+    <span class="brand-tag">log parser</span>
+    <a class="brand-credit" href="https://www.shenouda.nl" target="_blank" rel="noopener noreferrer" title="Visit shenouda.nl">
+      <span class="credit-sep">·</span>
+      <span class="credit-by">by</span>
+      <span class="credit-name">Joe Shenouda</span>
+    </a>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input id="master-search" type="text"
+           placeholder='Search — try  actor:alice  ip:185.220.101.7  action:Delete  "console login"'
+           autocomplete="off" spellcheck="false" />
+    <span id="search-meta" class="search-meta"></span>
+    <div class="export-wrap">
+      <button id="export-btn" class="ghost-btn hidden" title="Export current filtered view">⇩ Export</button>
+      <div id="export-menu" class="export-menu hidden">
+        <button data-format="json">JSON  <span class="ext-hint">pretty</span></button>
+        <button data-format="ndjson">NDJSON  <span class="ext-hint">streamable</span></button>
+        <button data-format="csv">CSV  <span class="ext-hint">spreadsheet</span></button>
+      </div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <span id="provider-badge" class="provider-badge">no log loaded</span>
+    <button id="reset-btn" class="ghost-btn" title="Clear all loaded data">Reset</button>
+  </div>
+</header>
+
+<!-- Activity histogram (above the 3-column grid) -->
+<section id="histogram-wrap" class="histogram-wrap empty">
+  <div class="histogram-canvas-box">
+    <canvas id="histogram-canvas"></canvas>
+  </div>
+  <div class="histogram-meta">
+    <div id="histogram-hint" class="histogram-hint">
+      Activity histogram will appear after a log file is ingested.
+    </div>
+    <button id="histogram-clear" class="ghost-btn hidden" title="Clear time-window filter">
+      ✕ <span class="clear-label">window</span>
+    </button>
+  </div>
+</section>
+
+<!-- Main 3-column grid -->
+<main class="dashboard">
+
+  <!-- SIDEBAR -->
+  <aside class="panel sidebar">
+    <div class="drop-zone" id="drop-zone">
+      <div class="drop-icon">＋</div>
+      <div class="drop-title">Drop log file</div>
+      <div class="drop-sub">or click to browse</div>
+      <input type="file" id="file-input" accept=".json,.log,.ndjson,application/json,text/plain" hidden />
+    </div>
+
+    <section class="widget examples-widget">
+      <div class="widget-header"><span>Try Example Logs</span></div>
+      <div class="examples-list">
+        <button class="example-btn" data-example="examples/aws-cloudtrail-sample.json" data-label="AWS CloudTrail">
+          <span class="ex-icon" style="color:#ff9900">☁</span>
+          <span class="ex-text">
+            <span class="ex-name">AWS CloudTrail</span>
+            <span class="ex-meta">15 events · Console login, IAM, S3, MFA</span>
+          </span>
+        </button>
+        <button class="example-btn" data-example="examples/okta-system-log-sample.json" data-label="Okta">
+          <span class="ex-icon" style="color:#007dc1">◉</span>
+          <span class="ex-text">
+            <span class="ex-name">Okta System Log</span>
+            <span class="ex-meta">12 events · MFA reset, brute force, admin app</span>
+          </span>
+        </button>
+        <button class="example-btn" data-example="examples/azure-activity-sample.json" data-label="Azure">
+          <span class="ex-icon" style="color:#0078d4">◢</span>
+          <span class="ex-text">
+            <span class="ex-name">Azure Activity</span>
+            <span class="ex-meta">10 events · KeyVault, NSG, RBAC, SQL delete</span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <section class="widget">
+      <div class="widget-header">
+        <span>Overview</span>
+        <span id="total-count" class="badge">0</span>
+      </div>
+      <div id="overview-stats" class="overview-stats">
+        <div class="stat-row"><span>Events</span><span id="stat-total">—</span></div>
+        <div class="stat-row"><span>Unique actors</span><span id="stat-actors">—</span></div>
+        <div class="stat-row"><span>Unique IPs</span><span id="stat-ips">—</span></div>
+        <div class="stat-row"><span>High-risk</span><span id="stat-risk" class="danger">—</span></div>
+        <div class="stat-row"><span>Time span</span><span id="stat-span">—</span></div>
+      </div>
+    </section>
+
+    <section class="widget">
+      <div class="widget-header"><span>Top Source IPs</span></div>
+      <ul id="top-ips" class="metric-list"><li class="muted">Load a file to begin</li></ul>
+    </section>
+
+    <section class="widget">
+      <div class="widget-header"><span>Top Actors</span></div>
+      <ul id="top-actors" class="metric-list"><li class="muted">—</li></ul>
+    </section>
+
+    <section class="widget">
+      <div class="widget-header"><span>High-Risk Operations</span></div>
+      <ul id="top-risk" class="metric-list"><li class="muted">—</li></ul>
+    </section>
+  </aside>
+
+  <!-- TIMELINE FEED -->
+  <section class="panel timeline">
+    <div class="panel-header">
+      <span class="panel-title">Timeline</span>
+      <div class="panel-actions">
+        <button id="sort-toggle" class="ghost-btn sort-toggle" title="Toggle chronological order">
+          <span class="sort-arrow">↑</span>
+          <span class="sort-label">oldest first</span>
+        </button>
+        <span id="timeline-status" class="panel-sub">no events</span>
+      </div>
+    </div>
+    <div class="timeline-header-row">
+      <span class="cell-time">Time</span>
+      <span class="cell-actor">Actor</span>
+      <span class="cell-action">Action</span>
+      <span class="cell-ip">Source IP</span>
+    </div>
+    <div id="timeline-feed" class="timeline-feed">
+      <div class="empty-state">
+        <div class="empty-icon">⌗</div>
+        <div class="empty-title">No logs ingested</div>
+        <div class="empty-sub">
+          Drop a CloudTrail, Okta System Log, or Azure Activity JSON file into the sidebar,<br/>
+          or click an <strong>Example Log</strong> on the left to explore the engine.<br/><br/>
+          Everything stays on your machine — nothing is uploaded.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSPECTOR -->
+  <aside class="panel inspector">
+    <div class="panel-header">
+      <span class="panel-title">Inspector</span>
+      <button id="copy-raw" class="ghost-btn hidden" title="Copy raw JSON">Copy</button>
+    </div>
+    <div id="inspector-body" class="inspector-body">
+      <div class="empty-state small">
+        <div class="empty-icon">{ }</div>
+        <div class="empty-title">No event selected</div>
+        <div class="empty-sub">Click any timeline row to inspect the raw log record.</div>
+      </div>
+    </div>
+  </aside>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

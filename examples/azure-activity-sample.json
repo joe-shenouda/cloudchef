@@ -1,0 +1,106 @@
+{
+  "records": [
+    {
+      "time": "2026-05-31T06:00:12.0000000Z",
+      "resourceId": "/subscriptions/abc-123/resourceGroups/prod-rg/providers/Microsoft.Compute/virtualMachines/web-vm-01",
+      "operationName": "Microsoft.Compute/virtualMachines/start/action",
+      "category": "Administrative",
+      "resultType": "Success",
+      "callerIpAddress": "203.0.113.45",
+      "correlationId": "corr-0001",
+      "identity": "alice@corp.example.com",
+      "caller": "alice@corp.example.com"
+    },
+    {
+      "time": "2026-05-31T06:14:55.0000000Z",
+      "resourceId": "/subscriptions/abc-123/resourceGroups/prod-rg/providers/Microsoft.KeyVault/vaults/prod-kv",
+      "operationName": "Microsoft.KeyVault/vaults/secrets/write/action",
+      "category": "Administrative",
+      "resultType": "Success",
+      "callerIpAddress": "203.0.113.45",
+      "caller": "alice@corp.example.com",
+      "correlationId": "corr-0002"
+    },
+    {
+      "time": "2026-05-31T06:30:01.0000000Z",
+      "resourceId": "/subscriptions/abc-123/resourceGroups/prod-rg/providers/Microsoft.Network/networkSecurityGroups/prod-nsg",
+      "operationName": "Microsoft.Network/networkSecurityGroups/securityRules/delete",
+      "category": "Administrative",
+      "resultType": "Success",
+      "callerIpAddress": "185.220.101.7",
+      "caller": "rogue.admin@corp.example.com",
+      "correlationId": "corr-0003"
+    },
+    {
+      "time": "2026-05-31T06:45:33.0000000Z",
+      "resourceId": "/subscriptions/abc-123/resourceGroups/prod-rg/providers/Microsoft.Storage/storageAccounts/prodstorage",
+      "operationName": "Microsoft.Storage/storageAccounts/listKeys/action",
+      "category": "Administrative",
+      "resultType": "Success",
+      "callerIpAddress": "198.51.100.22",
+      "caller": "ci-pipeline@corp.example.com",
+      "correlationId": "corr-0004"
+    },
+    {
+      "time": "2026-05-31T07:02:18.0000000Z",
+      "resourceId": "/subscriptions/abc-123/providers/Microsoft.Authorization/roleAssignments/role-001",
+      "operationName": "Microsoft.Authorization/roleAssignments/write",
+      "category": "Administrative",
+      "resultType": "Success",
+      "callerIpAddress": "203.0.113.45",
+      "caller": "alice@corp.example.com",
+      "properties": { "principalType": "User", "roleDefinitionId": "Owner" },
+      "correlationId": "corr-0005"
+    },
+    {
+      "time": "2026-05-31T07:20:00.0000000Z",
+      "resourceId": "/subscriptions/abc-123/resourceGroups/prod-rg/providers/Microsoft.Sql/servers/prod-sql/databases/customers-db",
+      "operationName": "Microsoft.Sql/servers/databases/delete",
+      "category": "Administrative",
+      "resultType": "Success",
+      "callerIpAddress": "185.220.101.7",
+      "caller": "rogue.admin@corp.example.com",
+      "correlationId": "corr-0006"
+    },
+    {
+      "time": "2026-05-31T07:35:42.0000000Z",
+      "resourceId": "/subscriptions/abc-123/resourceGroups/prod-rg/providers/Microsoft.Web/sites/billing-api",
+      "operationName": "Microsoft.Web/sites/config/update",
+      "category": "Administrative",
+      "resultType": "Success",
+      "callerIpAddress": "54.239.28.85",
+      "caller": "ci-pipeline@corp.example.com",
+      "correlationId": "corr-0007"
+    },
+    {
+      "time": "2026-05-31T08:01:11.0000000Z",
+      "resourceId": "/subscriptions/abc-123/resourceGroups/prod-rg/providers/Microsoft.Compute/virtualMachines/db-vm-02",
+      "operationName": "Microsoft.Compute/virtualMachines/deallocate/action",
+      "category": "Administrative",
+      "resultType": "Success",
+      "callerIpAddress": "198.51.100.99",
+      "caller": "dave@corp.example.com",
+      "correlationId": "corr-0008"
+    },
+    {
+      "time": "2026-05-31T08:18:24.0000000Z",
+      "resourceId": "/subscriptions/abc-123/resourceGroups/prod-rg/providers/Microsoft.Network/publicIPAddresses/web-vm-01-ip",
+      "operationName": "Microsoft.Network/publicIPAddresses/read",
+      "category": "Administrative",
+      "resultType": "Success",
+      "callerIpAddress": "198.51.100.99",
+      "caller": "dave@corp.example.com",
+      "correlationId": "corr-0009"
+    },
+    {
+      "time": "2026-05-31T08:45:09.0000000Z",
+      "resourceId": "/subscriptions/abc-123/resourceGroups/prod-rg/providers/Microsoft.Storage/storageAccounts/prodstorage",
+      "operationName": "Microsoft.Storage/storageAccounts/delete",
+      "category": "Administrative",
+      "resultType": "Success",
+      "callerIpAddress": "185.220.101.7",
+      "caller": "rogue.admin@corp.example.com",
+      "correlationId": "corr-0010"
+    }
+  ]
+}
